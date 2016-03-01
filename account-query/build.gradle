@@ -1,0 +1,16 @@
+apply plugin: 'spring-boot'
+
+dependencies {
+    compile project(':event-sourcing')
+    compile project(":common-source")
+
+    compile "org.springframework.boot:spring-boot-starter-data-jpa"
+    compile "org.springframework.boot:spring-boot-starter-web"
+    compile "mysql:mysql-connector-java"
+
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+}
+
+test {
+
+}

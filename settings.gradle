@@ -1,0 +1,8 @@
+include 'event-sourcing'
+include 'common-source'
+include 'account-command'
+include 'account-query'
+include 'transaction-command'
+include 'common-swagger'
+
+rootProject.name = 'myevent-sourcing'

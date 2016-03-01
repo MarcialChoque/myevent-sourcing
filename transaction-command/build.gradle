@@ -1,0 +1,20 @@
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+
+dependencies {
+    compile "org.projectlombok:lombok:1.16.6"
+
+    compile project(":event-sourcing")
+    compile project(":common-source")
+    compile project(":common-swagger")
+
+    compile "org.springframework.boot:spring-boot-starter-web"
+    //compile "org.springframework.boot:spring-boot-starter-data-jpa"
+    //compile "mysql:mysql-connector-java"
+
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+}
+
+test {
+
+}
