@@ -17,6 +17,8 @@ public class BaseEvent {
 
     private String type; //event type typically the name of the class containing event data
 
+    private String entity; //name of the aggregate's class
+
     private String entityId; //aggregate id (related entity)
 
     private Date createdDate; //timestamp at which the event happened

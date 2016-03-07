@@ -11,12 +11,20 @@ import java.util.Date;
  */
 public class EventListener extends AbstractMongoEventListener<BaseEvent> {
 
-    //changes in onBeforeSave doesn't work
-    //mongo doesn't save null fields.
+    //changes onBeforeSave doesn't work.
+    //Mongo doesn't save null fields.
     @Override
     public void onBeforeConvert(BeforeConvertEvent<BaseEvent> event) {
         if (event.getSource().getCreatedDate() == null) {
             event.getSource().setCreatedDate(new Date());
         }
+
+        if (event.getSource().getType() == null) {
+            event.getSource().setType(generateTypeOfEvent(event));
+        }
+    }
+
+    public static String generateTypeOfEvent(Object event) {
+        return event.getClass().getSimpleName();
     }
 }
