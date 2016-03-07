@@ -2,9 +2,6 @@ apply plugin: 'java'
 apply plugin: 'spring-boot'
 
 dependencies {
-    compile "org.projectlombok:lombok:1.16.6"
-
-    compile project(":event-sourcing")
     compile project(":common-source")
     compile project(":common-swagger")
 

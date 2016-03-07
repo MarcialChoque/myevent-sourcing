@@ -42,7 +42,7 @@ public class AccountService {
 
     private void fireAccountOpenedEvent(Account account) {
         AccountOpenedEvent event = new AccountOpenedEvent();
-        event.setId(account.getId()+"");
+        //event.setId(account.getId()+"");
         event.setType("AccountOpenedEvent");
         event.setInitialBalance(account.getBalance());
         accountOpenedEventEvent.fire(event);

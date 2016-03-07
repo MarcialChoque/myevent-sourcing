@@ -1,6 +1,6 @@
 package com.example.myeventsourcing.common.event.transaction;
 
-import com.example.myeventsourcing.common.event.BaseEvent;
+import com.example.myeventsourcing.event.BaseEvent;
 import lombok.Data;
 
 import java.math.BigDecimal;

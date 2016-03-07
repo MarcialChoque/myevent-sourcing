@@ -1,8 +1,8 @@
 apply plugin: 'spring-boot'
 
 dependencies {
-    compile project(":event-sourcing")
     compile project(":common-source")
+    compile project(":common-swagger")
 
     compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
     compile "org.springframework.boot:spring-boot-starter-data-jpa"

@@ -1,26 +1,27 @@
 package com.example.myeventsourcing.event;
 
+import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.Date;
+
 /**
  * Created by Administrador on 18/02/2016.
  */
-public abstract class BaseEvent {
-    private String id;
 
-    private String type;
+@Data
+@Document(collection = "event")
+public class BaseEvent {
 
-    public String getId() {
-        return id;
-    }
+    private String id; //unique event id normally auto generated
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    private String type; //event type typically the name of the class containing event data
 
-    public String getType() {
-        return type;
-    }
+    private String entityId; //aggregate id (related entity)
 
-    public void setType(String type) {
-        this.type = type;
-    }
+    private Date createdDate; //timestamp at which the event happened
+
+    private String txId; //groups events triggered in a single transaction
+
+    private String userId; //optional id of the user or other actor which triggered the event
 }

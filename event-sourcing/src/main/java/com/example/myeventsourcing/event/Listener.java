@@ -9,7 +9,6 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-//@RabbitListener(bindings = @QueueBinding(exchange = @Exchange(value = "java.lang.String", type = ExchangeTypes.FANOUT, durable = "true"), value = @Queue(value = "teststring", durable = "true")))
-//@RabbitListener
+//equivalent code for string event: @RabbitListener(bindings = @QueueBinding(exchange = @Exchange(value = "java.lang.String", type = ExchangeTypes.FANOUT, durable = "true"), value = @Queue(value = "teststring", durable = "true")))
 public @interface Listener {
 }
