@@ -4,6 +4,9 @@ import com.example.myeventsourcing.common.event.transaction.TransferDetail;
 import com.example.myeventsourcing.transaction.service.MoneyTransferService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 /**
@@ -25,18 +29,22 @@ public class TransferController {
     private MoneyTransferService moneyTransferService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public String transfer(@Validated @RequestBody TransferRequest transferRequest) {
+    public ResponseEntity<?> transfer(@Validated @RequestBody TransferRequest transferRequest) {
         moneyTransferService.transferMoney(new TransferDetail(
                         transferRequest.sourceAccountId
-                        , transferRequest.getTargetAccountId()
-                        , transferRequest.getAmount()));
-        return "DOING";
+                        , transferRequest.targetAccountId
+                        , transferRequest.amount));
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<>(null, headers, HttpStatus.ACCEPTED);
     }
 
     @Data
     public static class TransferRequest {
+
+        @NotNull
         private Long sourceAccountId;
 
+        @NotNull
         private Long targetAccountId;
 
         @DecimalMin("0.01")

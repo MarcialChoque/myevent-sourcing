@@ -31,10 +31,6 @@ public class MoneyTransferService {
         fireMoneyTransferCreatedEvent(detail);
     }
 
-    private Object get1() {
-        return transferCreatedEventEvent;
-    }
-
     @Listener
     public void recordDebit(AccountDebitedEvent e) {
         System.out.println("STARTING RECORD DEBIT: "+e);

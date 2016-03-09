@@ -1,15 +1,19 @@
 package com.example.myeventsourcing.event;
 
+import com.example.myeventsourcing.event.repository.EventRepository;
+import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.RabbitListenerAnnotationBeanPostProcessor;
 import org.springframework.amqp.rabbit.annotation.RabbitListenerConfigurer;
 import org.springframework.amqp.rabbit.config.RabbitListenerConfigUtils;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.RabbitListenerEndpointRegistrar;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
@@ -27,8 +31,12 @@ public class EventSourcingAutoConfiguration implements RabbitListenerConfigurer 
 
     @Bean
     @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-    public <E> Event<E> event() {
-        return new Event<E>();
+    @ConditionalOnMissingBean
+    public <E> Event<E> event(RabbitTemplate rabbitTemplate
+            , AmqpAdmin amqpAdmin
+            , MessageConverter defaultEventMessageConverter
+            , EventRepository eventRepository) {
+        return new Event<>(rabbitTemplate, amqpAdmin, defaultEventMessageConverter, eventRepository);
     }
 
     @Bean(name = RabbitListenerConfigUtils.RABBIT_LISTENER_ANNOTATION_PROCESSOR_BEAN_NAME)

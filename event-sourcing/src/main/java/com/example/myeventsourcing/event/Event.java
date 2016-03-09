@@ -4,21 +4,23 @@ import com.example.myeventsourcing.event.repository.EventRepository;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.MessageConverter;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class Event<E> {
 
-    @Autowired
     private RabbitTemplate rabbitTemplate;
 
-    @Autowired
     private AmqpAdmin amqpAdmin;
 
-    @Autowired
     private MessageConverter defaultEventMessageConverter;
 
-    @Autowired
     private EventRepository eventRepository;
+
+    public Event(RabbitTemplate rabbitTemplate, AmqpAdmin amqpAdmin, MessageConverter defaultEventMessageConverter, EventRepository eventRepository) {
+        this.rabbitTemplate = rabbitTemplate;
+        this.amqpAdmin = amqpAdmin;
+        this.defaultEventMessageConverter = defaultEventMessageConverter;
+        this.eventRepository = eventRepository;
+    }
 
     public void fire(E event) {
         EventSourcingConfig config = EventSourcingConfig.create(event.getClass());
